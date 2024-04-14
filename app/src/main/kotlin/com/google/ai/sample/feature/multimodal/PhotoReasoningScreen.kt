@@ -21,12 +21,15 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -102,10 +105,16 @@ internal fun PhotoReasoningRoute(
                         return@mapNotNull null
                     }
                 }
-                viewModel.reason(inputText, bitmaps)
+                viewModel.reason(bitmaps)
             }
         }
     )
+}
+
+@Composable
+@Preview(showSystemUi = true)
+fun PhotoReasoningScreenPreview() {
+    PhotoReasoningScreen()
 }
 
 @Composable
@@ -133,7 +142,9 @@ fun PhotoReasoningScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
-                modifier = Modifier.padding(top = 16.dp, )
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(), horizontalArrangement = Arrangement.Center
 
             ) {
                 IconButton(
@@ -151,19 +162,19 @@ fun PhotoReasoningScreen(
                         contentDescription = stringResource(R.string.add_image),
                     )
                 }
-                OutlinedTextField(
-                    value = userQuestion,
-                    label = { Text(stringResource(R.string.reason_label)) },
-                    placeholder = { Text(stringResource(R.string.reason_hint)) },
-                    onValueChange = { userQuestion = it },
-                    modifier = Modifier
-                        .fillMaxWidth(0.8f)
-                )
+//                OutlinedTextField(
+//                    value = userQuestion,
+//                    label = { Text(stringResource(R.string.reason_label)) },
+//                    placeholder = { Text(stringResource(R.string.reason_hint)) },
+//                    onValueChange = { userQuestion = it },
+//                    modifier = Modifier
+//                        .fillMaxWidth(0.8f)
+//                )
+
+                Spacer(modifier = Modifier.width(40.dp)) // Add spacing between buttons
                 TextButton(
                     onClick = {
-                        if (userQuestion.isNotBlank()) {
-                            onReasonClicked(userQuestion, imageUris.toList())
-                        }
+                        onReasonClicked(userQuestion, imageUris.toList())
                     },
                     modifier = Modifier
                         .padding(all = 4.dp)
@@ -257,10 +268,4 @@ fun PhotoReasoningScreen(
             }
         }
     }
-}
-
-@Composable
-@Preview(showSystemUi = true)
-fun PhotoReasoningScreenPreview() {
-    PhotoReasoningScreen()
 }
