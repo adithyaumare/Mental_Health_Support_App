@@ -15,7 +15,7 @@ class PhotoReasoningViewModel(
     private val generativeModel: GenerativeModel
 ) : ViewModel() {
 
-    private val userInput = "answer in one word about my emotion in picture and what should be done elaborate with multiple suggestions in points"
+    private val userInput = "answer in one word about my emotion in picture and what should be done elaborate with multiple suggestions in points. if the emotion if sad or emotion related to it, also suggest some therapists with their name, phone number and address in pune or else don't suggest therapists"
 
     private val _uiState: MutableStateFlow<PhotoReasoningUiState> =
         MutableStateFlow(PhotoReasoningUiState.Initial)
